@@ -23,9 +23,11 @@ class Tienda:
                 print(f'{i.nombre}')
             print('---------------------------\n')
 
-    def restar_cantidades(self,nombre,cantidades_menos):
+    def restar_cantidades(self):
         print('\n--------------Restar o sumar Unidades a los productos--------------\n')
         try:
+            nombre = str(input('Ingrese el nombre del producto al que desea cambiar unidades: '))
+            cantidades_menos = int(input('Ingrese el la cantidad de unidades: '))
             print("Quieres restar o sumar cantidades?")
             opcion = int(input("Opcion:  "))
             if opcion == 1:
@@ -33,10 +35,6 @@ class Tienda:
                     self.dataproductos[nombre].cantidad =- cantidades_menos
                 else:
                     raise KeyError()
-        except KeyError:
-                print('\n---------------------------')
-                print('   Producto no existente   ')
-                print('---------------------------\n')
                 if opcion == 2:
                     if nombre in self.dataproductos.keys():
                         self.dataproductos[nombre].cantidad =+ cantidades_menos
@@ -47,9 +45,10 @@ class Tienda:
                 print('   Producto no existente   ')
                 print('---------------------------\n')
 
-
-    def modificar_precio(self, nombre, precio):
+    def modificar_precio(self):
         print('\n-------------- Modificar los precios --------------\n')
+        nombre = str(input('Ingrese el nombre del producto que desea eliminar: '))
+        precio = int(input('Ingrese el valor nuevo del producto: '))
         try:
             if nombre in self.dataproductos.keys():
                 self.dataproductos[nombre].valor = precio
@@ -63,8 +62,11 @@ class Tienda:
             print('   Producto no existente   ')
             print('---------------------------\n')
 
-    def agregar_productos_nuevos(self, nombre, cantidad, valor):
+    def agregar_productos_nuevos(self):
         print('\n--------------Agregar Productos--------------\n')
+        nombre = str(input('Ingrese el nombre nuevo del producto: '))
+        valor = int(input('Ingrese el valor del nuevo producto: '))
+        cantidad = int(input('Ingrese la cantidad del nuevo producto: '))
         if nombre in self.dataproductos.keys():
             print('\n---------------------------')
             print('   Producto ya existente   ')
@@ -75,8 +77,9 @@ class Tienda:
             print('Producto agregado correctamente')
             print('---------------------------\n')           
     
-    def eliminar_producto(self,nombre):
+    def eliminar_producto(self):
         print('\n-------------- Eliminar Productos --------------\n')
+        nombre = str(input('ingrese el nombre del producto que desea eliminar: '))
         try:
             del self.dataproductos[nombre]
             print('\n---------------------------')
@@ -114,16 +117,19 @@ class Tienda:
                     if opcion == 2:
                        break
 
-    def registrar_fiador(self,apodo,celular,deuda):
+    def registrar_fiador(self, deuda = 0):
         print('\n-------------- Registar Fiadores --------------\n')
+        apodo = int(input('Ingrese el valor nuevo del producto: '))
+        celular = int(input('Ingrese el valor nuevo del producto: '))
         self.fiadores.append(Fiador(apodo,celular,deuda))
         print('\n---------------------------')
         print('fiador agregado correctamente')
         print('---------------------------\n')  
 
-    def fiar_producto(self, apodo, deuda):
+    def fiar_producto(self, deuda):
         print('\n-------------- Realizar Fiados --------------\n')
         fiadores = []
+        apodo = str(input('Ingrese el apodo del fiador: '))
         for i in self.fiadores:
             fiadores.append(i.apodo)
         if apodo in fiadores:
@@ -131,8 +137,7 @@ class Tienda:
                 if fiador.apodo == apodo:
                     fiador.deuda +=deuda
         else:
-            celular = str(input("ingrese numero celular sin espacios ni guiones: "))
-            self.registrar_fiador(apodo,celular, deuda)
+            self.registrar_fiador(deuda)
         print('\n---------------------------')
         print('fiado agregado correctamente')
         print('---------------------------\n') 
@@ -150,6 +155,7 @@ class Tienda:
             unidades = self.carrito.productos[item]
             for i in self.dataproductos.keys():
                 if item == self.dataproductos[i].nombre:
+                    self.dataproductos[i].cantidad -= unidades
                     valor_total += unidades * self.dataproductos[i].valor
         print(f'El valor a pagar es:  {valor_total}')            
         while True:            
@@ -158,9 +164,7 @@ class Tienda:
                 print("Falta dinero, desea fiar el restante?")
                 opcion = int(input("Opción:  "))
                 if opcion == 1:
-                    apodo = str(input("Ingrese apodo de fiador:  "))
-
-                    self.fiar(apodo,valor_total-pago)
+                    self.fiar(valor_total-pago)
                     self.ganancias += pago
                     break
             if pago > valor_total:
@@ -202,14 +206,6 @@ class Tienda:
         print('\n----------------------------\n')
         print('\n----------------------------\n')
         self.verificar_unidades()
-
-
-
-        
-        
-
-  
-
 
 
 class Fiador():

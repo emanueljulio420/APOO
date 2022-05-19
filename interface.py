@@ -1,3 +1,6 @@
+import mundo
+
+a = mundo.Tienda()
 
 class ValorError(Exception):
   pass
@@ -10,46 +13,59 @@ while True:
         print('------------------------------')
         print('1.Mostrar productos')
         print('2.Agregar nuevo producto')
-        print('3.Eliminar product')
+        print('3.Eliminar producto')
         print('4.Actualizar precio de producto')
-        print('5.Mostrar productos')
-        print('6.Mostrar productos')
+        print('5.Mostrar estadisticas')
+        print('6.Agregar producto al carrito')
+        print('7.Vender productos en carrito')
+        print('8.Mostarar fiadores')
+        print('9.Añadir fiador')
+        print('10.Ver unidades a punto de agotarse')
+        print('11.restar unidades de un producto en especifico')
+        print('12.Salir')
         operacion = int(input('Ingrese el numero de la aperacion que desea realizar: '))
 
         if operacion == 1:
-            if tienda.dataproductos == {}:
+            if a.dataproductos == {}:
                 print('\n---------------------------')
                 print(' No hay prodctos registrados ')
                 print('---------------------------\n')
             else:
-                tienda.imprimir_productos()
+                a.imprimir_productos()
 
         if operacion == 2:
-            pass
+            
+            a.agregar_productos_nuevos()
 
         if operacion == 3:
-            pass
+            a.eliminar_producto()
 
         if operacion == 4:
-            pass
+            a.modificar_precio()
 
         if operacion == 5:
-            pass
+            a.estadisticas_tienda()
 
         if operacion == 6:
-            pass
+            a.anadir_al_carrito()
 
         if operacion == 7:
-            pass
+            a.vender_productos()
 
         if operacion == 8:
-            pass
+            a.imprimir_fiadores()
 
         if operacion == 9:
-            pass
+            a.registrar_fiador()
 
         if operacion == 10:
-            pass
+            a.verificar_unidades()
+
+        if operacion == 11:
+            a.restar_cantidades()
+        
+        if operacion == 12:
+            print('-------- Hasta luego --------')
 
         if 1 > operacion or operacion > 10:
             raise  ValorError()
