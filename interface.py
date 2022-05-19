@@ -67,7 +67,7 @@ while True:
         if operacion == 12:
             print('-------- Hasta luego --------')
 
-        if 1 > operacion or operacion > 10:
+        if 1 > operacion or operacion > 12:
             raise  ValorError()
 
     except ValueError:
