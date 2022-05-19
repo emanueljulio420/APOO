@@ -10,6 +10,7 @@ class Tienda:
         
 
     def verificar_unidades(self):
+        print('\n--------------Productos proximos a agotarse--------------\n')
         menores = []
         if self.dataproductos != {}:
             for i in self.dataproductos.keys():
@@ -23,17 +24,32 @@ class Tienda:
             print('---------------------------\n')
 
     def restar_cantidades(self,nombre,cantidades_menos):
+        print('\n--------------Restar o sumar Unidades a los productos--------------\n')
         try:
-            if nombre in self.dataproductos.keys():
-                self.dataproductos[nombre].cantidad =- cantidades_menos
-            else:
-                raise KeyError()
+            print("Quieres restar o sumar cantidades?")
+            opcion = int(input("Opcion:  "))
+            if opcion == 1:
+                if nombre in self.dataproductos.keys():
+                    self.dataproductos[nombre].cantidad =- cantidades_menos
+                else:
+                    raise KeyError()
         except KeyError:
-            print('\n---------------------------')
-            print('   Producto no existente   ')
-            print('---------------------------\n')
+                print('\n---------------------------')
+                print('   Producto no existente   ')
+                print('---------------------------\n')
+                if opcion == 2:
+                    if nombre in self.dataproductos.keys():
+                        self.dataproductos[nombre].cantidad =+ cantidades_menos
+                else:
+                    raise KeyError()
+        except KeyError:
+                print('\n---------------------------')
+                print('   Producto no existente   ')
+                print('---------------------------\n')
+
 
     def modificar_precio(self, nombre, precio):
+        print('\n-------------- Modificar los precios --------------\n')
         try:
             if nombre in self.dataproductos.keys():
                 self.dataproductos[nombre].valor = precio
@@ -48,6 +64,7 @@ class Tienda:
             print('---------------------------\n')
 
     def agragar_productos(self, nombre, cantidad, valor):
+        print('\n--------------Agregar Productos--------------\n')
         if nombre in self.dataproductos.keys():
             print('\n---------------------------')
             print('   Producto ya existente   ')
@@ -59,6 +76,7 @@ class Tienda:
             print('---------------------------\n')           
     
     def eliminar_producto(self,nombre):
+        print('\n-------------- Eliminar Productos --------------\n')
         try:
             del self.dataproductos[nombre]
             print('\n---------------------------')
@@ -97,12 +115,14 @@ class Tienda:
                        break
 
     def registrar_fiador(self,apodo,celular,deuda):
+        print('\n-------------- Registar Fiadores --------------\n')
         self.fiadores.append(Fiador(apodo,celular,deuda))
         print('\n---------------------------')
         print('fiador agregado correctamente')
         print('---------------------------\n')  
 
     def fiar(self, apodo, deuda):
+        print('\n-------------- Realizar Fiados --------------\n')
         fiadores = []
         for i in self.fiadores:
             fiadores.append(i.apodo)
@@ -118,11 +138,13 @@ class Tienda:
         print('---------------------------\n') 
 
     def imprimir_fiadores(self):
+        print('\n-------------- Mostrar Fiadores actuales --------------\n')
         for fiador in self.fiadores:
             print(f'Apodo:  {fiador.apodo}')
             print(f'Deuda a la fecha:  {fiador.deuda}')        
                     
     def vender_productos(self):
+        print('\n-------------- Realizar Ventas --------------\n')
         valor_total= 0
         for item in self.carrito.productos.keys():
             unidades = self.carrito.productos[item]
