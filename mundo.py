@@ -121,7 +121,7 @@ class Tienda:
         print('fiador agregado correctamente')
         print('---------------------------\n')  
 
-    def fiar(self, apodo, deuda):
+    def fiar_producto(self, apodo, deuda):
         print('\n-------------- Realizar Fiados --------------\n')
         fiadores = []
         for i in self.fiadores:
@@ -199,6 +199,10 @@ class Tienda:
         print('\n----------------------------\n')
         print(f'La deuda total que tiene la tienda en fiados es: {deuda_total}')
         print(f'Las ganacias totales que tiene la tienda son: {self.ganancias}')
+        print('\n----------------------------\n')
+        print('\n----------------------------\n')
+        self.verificar_unidades()
+
 
 
         
