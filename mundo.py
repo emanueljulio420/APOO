@@ -1,8 +1,13 @@
+import abc
+
 class Tienda:
     
     def __init__(self) -> None:
-        self.clientes = []
+        self.fiadores = []
         self.dataproductos = {}
+        self.carrito = Carrito()
+        self.ganancias = 0
+        
 
     def verificar_unidades(self):
         menores = []
@@ -73,25 +78,120 @@ class Tienda:
             print(f'precio: {self.dataproductos[i].valor}')
             print('---------------------------\n')
         print('----------Fin de productos-----------\n')
+    
+    def anadir_al_carrito(self):
+        self.carrito.productos={}
+        print('\n--------------Añadir Productos al Carrito--------------\n')
+        while True:
+            item = str(input("Ingrese el nombre del producto que quiere adquirir:  "))
+            cantidad_a_adquirir = int(input("Ingrese la cantidad de unidades que desea adquirir:  "))
+            if item in self.dataproductos:
+                if cantidad_a_adquirir <= self.dataproductos[item].cantidad:
+                    self.carrito.productos[item]= cantidad_a_adquirir
+                    print(self.carrito.productos)
+                    print("Desea continuar añadiendo productos al carrito?: Responda 1 para SI, 2 para NO")
+                    opcion = int(input("Opción:  "))
+                    
+            
+                    if opcion == 2:
+                       break
 
-class Cliente:
+    def registrar_fiador(self,apodo,celular,deuda):
+        self.fiadores.append(Fiador(apodo,celular,deuda))
+        print('\n---------------------------')
+        print('fiador agregado correctamente')
+        print('---------------------------\n')  
 
-    def __init__(self, apodo, celular):
+    def fiar(self, apodo, deuda):
+        fiadores = []
+        for i in self.fiadores:
+            fiadores.append(i.apodo)
+        if apodo in fiadores:
+            for fiador in self.fiadores:
+                if fiador.apodo == apodo:
+                    fiador.deuda +=deuda
+        else:
+            celular = str(input("ingrese numero celular sin espacios ni guiones: "))
+            self.registrar_fiador(apodo,celular, deuda)
+        print('\n---------------------------')
+        print('fiado agregado correctamente')
+        print('---------------------------\n') 
+
+    def imprimir_fiadores(self):
+        for fiador in self.fiadores:
+            print(f'Apodo:  {fiador.apodo}')
+            print(f'Deuda a la fecha:  {fiador.deuda}')        
+                    
+    def vender_productos(self):
+        valor_total= 0
+        for item in self.carrito.productos.keys():
+            unidades = self.carrito.productos[item]
+            for i in self.dataproductos.keys():
+                if item == self.dataproductos[i].nombre:
+                    valor_total += unidades * self.dataproductos[i].valor
+        print(f'El valor a pagar es:  {valor_total}')            
+        while True:            
+            pago = int(input("Ingrese pago dado por el cliente:  "))
+            if pago < valor_total:
+                print("Falta dinero, desea fiar el restante?")
+                opcion = int(input("Opción:  "))
+                if opcion == 1:
+                    apodo = str(input("Ingrese apodo de fiador:  "))
+
+                    self.fiar(apodo,valor_total-pago)
+                    self.ganancias += pago
+                    break
+            if pago > valor_total:
+                print(f'El valor a devolver es: {pago - valor_total}')
+                print("GRACIAS POR SU COMPRA!")
+                self.ganancias += valor_total
+                break
+            if pago == valor_total:
+                print("GRACIAS POR SU COMPRA")
+                self.ganancias += valor_total
+                break
+
+    def pagar_deuda(self):
+        print('\n--------------Pagar deuda de fiados--------------\n')
+        fiadores = []
+        apodo = str(input("Apodo del fiador que va a pagar:  "))
+        pago = int(input("Cantidad a abonar en el fiado:  "))
+        for i in self.fiadores:
+            fiadores.append(i.apodo)
+        if apodo in fiadores:
+            for fiador in self.fiadores:
+                if fiador.apodo == apodo:
+                    fiador.deuda -= pago
+        print(f'la deuda actual es de {fiador.deuda}')
+        print('\n---------------------------')
+        print('abono agregado a la deuda correctamente')
+        print('---------------------------\n')  
+
+    def estadisticas_tienda(self):
+        print('\n-------------- Estadisticas de la tienda --------------\n')
+        deuda_total=0
+        for fiador in self.fiadores:
+            deuda_total += fiador.deuda
+        self.imprimir_fiadores()    
+        print(f'La deuda total que tiene la tienda en fiados es: {deuda_total}')
+        print(f'Las ganacias totales que tiene la tienda son: {self.ganancias}')
+
+
+        
+        
+
+  
+
+
+
+class Fiador():
+
+    def __init__(self, apodo, celular, deuda):
         self.apodo = apodo
         self.celular = celular
-        self.carrito = Carrito()
+        self.deuda = deuda 
 
-class Fiador(Cliente):
 
-    def __init__(self, apodo, celular, valor_deuda):
-        super().__init__(apodo, celular)
-        self.valor_deuda = valor_deuda
-
-class Normal(Cliente):
-
-    def __init__(self, apodo, celular, valor_compra):
-        super().__init__(apodo, celular)
-        self.valor_compra = valor_compra
 
 class Productos:
 
@@ -108,7 +208,10 @@ class Carrito:
 
     def __init__(self) -> None:
         self.productos = {}
- 
+    
+
+    
+
 
 if __name__ == '__main__':
 
@@ -120,8 +223,7 @@ if __name__ == '__main__':
 
     a.modificar_precio('salchichon',11000)
 
-    a.imprimir_productos()
-
-    a.restar_cantidades('salchicha',20)
-
-    a.verificar_unidades()
+  
+    a.registrar_fiador("William", "3104556246", 0)
+    a.registrar_fiador("Pepe", "00000000000", 50000)
+    a.estadisticas_tienda()
