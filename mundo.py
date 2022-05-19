@@ -2,7 +2,53 @@ class Tienda:
     
     def __init__(self) -> None:
         self.clientes = []
-        self.productos = {}
+        self.dataproductos = {}
+
+    def modificar_precio(self, nombre, precio):
+        try:
+            if nombre in self.dataproductos.keys():
+                self.dataproductos[nombre].valor = precio
+                print('\n---------------------------')
+                print('Precio cambiado correctamente')
+                print('---------------------------\n')
+            else:
+                raise KeyError()
+        except KeyError:
+            print('\n---------------------------')
+            print('   Producto no existente   ')
+            print('---------------------------\n')
+
+    def agragar_productos(self, nombre, cantidad, valor):
+        if nombre in self.dataproductos.keys():
+            print('\n---------------------------')
+            print('   Producto ya existente   ')
+            print('---------------------------\n') 
+        else:
+            self.dataproductos[nombre] = Productos(nombre,cantidad,valor)
+            print('\n---------------------------')
+            print('Producto agregado correctamente')
+            print('---------------------------\n')           
+    
+    def eliminar_producto(self,nombre):
+        try:
+            del self.dataproductos[nombre]
+            print('\n---------------------------')
+            print('Producto eliminado correctamente')
+            print('---------------------------\n')
+        except KeyError:
+            print('\n---------------------------')
+            print('   Producto no existente   ')
+            print('---------------------------\n')
+    
+    def imprimir_productos(self):
+        print('\n--------------Productos--------------\n')
+        for i in self.dataproductos.keys():
+            print('\n---------------------------')
+            print(f'nombre: {self.dataproductos[i].nombre}')
+            print(f'cantidad en almacen: {self.dataproductos[i].cantidad}')
+            print(f'precio: {self.dataproductos[i].valor}')
+            print('---------------------------\n')
+        print('----------Fin de productos-----------\n')
 
 class Cliente:
 
@@ -30,7 +76,26 @@ class Productos:
         self.cantidad = cantidad
         self.valor = valor
 
+    def __str__(self) -> str:
+        
+        return 
+
 class Carrito:
 
     def __init__(self) -> None:
-        self.productos = {} 
+        self.productos = {}
+ 
+
+if __name__ == '__main__':
+
+    a = Tienda()
+
+    a.agragar_productos('salchichon', 123, 12000)
+
+    a.agragar_productos('salchicha', 23, 15000)
+
+    a.imprimir_productos()
+
+    a.modificar_precio('salchichon',11000)
+
+    a.imprimir_productos()
