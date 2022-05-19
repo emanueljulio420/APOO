@@ -4,6 +4,30 @@ class Tienda:
         self.clientes = []
         self.dataproductos = {}
 
+    def verificar_unidades(self):
+        menores = []
+        if self.dataproductos != {}:
+            for i in self.dataproductos.keys():
+                if self.dataproductos[i].cantidad < 5:
+                    menores.append(self.dataproductos[i])
+            print('\n---------------------------')
+            print('   Dede de reabastecer   ')
+            for i in menores:
+                print('\n---------------------------')
+                print(f'{i.nombre}')
+            print('---------------------------\n')
+
+    def restar_cantidades(self,nombre,cantidades_menos):
+        try:
+            if nombre in self.dataproductos.keys():
+                self.dataproductos[nombre].cantidad =- cantidades_menos
+            else:
+                raise KeyError()
+        except KeyError:
+            print('\n---------------------------')
+            print('   Producto no existente   ')
+            print('---------------------------\n')
+
     def modificar_precio(self, nombre, precio):
         try:
             if nombre in self.dataproductos.keys():
@@ -94,8 +118,10 @@ if __name__ == '__main__':
 
     a.agragar_productos('salchicha', 23, 15000)
 
-    a.imprimir_productos()
-
     a.modificar_precio('salchichon',11000)
 
     a.imprimir_productos()
+
+    a.restar_cantidades('salchicha',20)
+
+    a.verificar_unidades()

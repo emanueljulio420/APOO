@@ -1,9 +1,7 @@
-import mundo
 
 class ValorError(Exception):
   pass
 
-tienda = mundo.Tienda()
 
 while True:
     try:
