@@ -63,7 +63,7 @@ class Tienda:
             print('   Producto no existente   ')
             print('---------------------------\n')
 
-    def agragar_productos(self, nombre, cantidad, valor):
+    def agregar_productos_nuevos(self, nombre, cantidad, valor):
         print('\n--------------Agregar Productos--------------\n')
         if nombre in self.dataproductos.keys():
             print('\n---------------------------')
