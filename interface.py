@@ -22,7 +22,8 @@ while True:
         print('9.Añadir fiador')
         print('10.Ver unidades a punto de agotarse')
         print('11.restar unidades de un producto en especifico')
-        print('12.Salir')
+        print('12.Pagar deuda')
+        print('13.Salir')
         operacion = int(input('Ingrese el numero de la aperacion que desea realizar: '))
 
         if operacion == 1:
@@ -59,9 +60,13 @@ while True:
 
         if operacion == 11:
             a.restar_cantidades()
-        
+
         if operacion == 12:
+            a.pagar_deuda()
+
+        if operacion == 13:
             print('-------- Hasta luego --------')
+            break
 
         if 1 > operacion or operacion > 12:
             raise  ValorError()

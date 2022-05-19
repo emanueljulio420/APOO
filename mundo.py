@@ -124,8 +124,8 @@ class Tienda:
 
     def registrar_fiador(self, deuda = 0):
         print('\n-------------- Registar Fiadores --------------\n')
-        apodo = int(input('Ingrese el valor nuevo del producto: '))
-        celular = int(input('Ingrese el valor nuevo del producto: '))
+        apodo = str(input('Ingrese el nombre del nuevo fiador: '))
+        celular = int(input('Ingrese el numero celular: '))
         self.fiadores.append(Fiador(apodo,celular,deuda))
         print('\n---------------------------')
         print('fiador agregado correctamente')
@@ -175,7 +175,7 @@ class Tienda:
                 print("Falta dinero, desea fiar el restante?")
                 opcion = int(input("Opción:  "))
                 if opcion == 1:
-                    self.fiar(valor_total-pago)
+                    self.fiar_producto(valor_total-pago)
                     self.ganancias += pago
                     break
             if pago > valor_total:
@@ -243,24 +243,3 @@ class Carrito:
 
     def __init__(self) -> None:
         self.productos = {}
-    
-
-    
-
-
-if __name__ == '__main__':
-
-    a = Tienda()
-
-    a.agregar_productos_nuevos('salchichon', 123, 12000)
-
-    a.agregar_productos_nuevos('salchicha', 23, 15000)
-
-    a.modificar_precio('salchichon',11000)
-
-  
-    a.registrar_fiador("William", "3104556246", 0)
-    a.registrar_fiador("Pepe", "00000000000", 50000)
-    a.anadir_al_carrito()
-    a.vender_productos()
-    a.estadisticas_tienda()
