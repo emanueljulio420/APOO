@@ -26,12 +26,8 @@ while True:
         operacion = int(input('Ingrese el numero de la aperacion que desea realizar: '))
 
         if operacion == 1:
-            if a.dataproductos == {}:
-                print('\n---------------------------')
-                print(' No hay prodctos registrados ')
-                print('---------------------------\n')
-            else:
-                a.imprimir_productos()
+
+            a.imprimir_productos()
 
         if operacion == 2:
             
