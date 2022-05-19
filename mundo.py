@@ -194,7 +194,9 @@ class Tienda:
         deuda_total=0
         for fiador in self.fiadores:
             deuda_total += fiador.deuda
-        self.imprimir_fiadores()    
+        self.imprimir_fiadores()
+        print('\n----------------------------\n')
+        print('\n----------------------------\n')
         print(f'La deuda total que tiene la tienda en fiados es: {deuda_total}')
         print(f'Las ganacias totales que tiene la tienda son: {self.ganancias}')
 
@@ -239,13 +241,15 @@ if __name__ == '__main__':
 
     a = Tienda()
 
-    a.agragar_productos('salchichon', 123, 12000)
+    a.agregar_productos_nuevos('salchichon', 123, 12000)
 
-    a.agragar_productos('salchicha', 23, 15000)
+    a.agregar_productos_nuevos('salchicha', 23, 15000)
 
     a.modificar_precio('salchichon',11000)
 
   
     a.registrar_fiador("William", "3104556246", 0)
     a.registrar_fiador("Pepe", "00000000000", 50000)
+    a.anadir_al_carrito()
+    a.vender_productos()
     a.estadisticas_tienda()
