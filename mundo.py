@@ -92,12 +92,17 @@ class Tienda:
     
     def imprimir_productos(self):
         print('\n--------------Productos--------------\n')
-        for i in self.dataproductos.keys():
-            print('\n---------------------------')
-            print(f'nombre: {self.dataproductos[i].nombre}')
-            print(f'cantidad en almacen: {self.dataproductos[i].cantidad}')
-            print(f'precio: {self.dataproductos[i].valor}')
-            print('---------------------------\n')
+        if self.dataproductos == {}:
+                print('\n---------------------------')
+                print(' No hay prodctos registrados ')
+                print('---------------------------\n')
+        else:
+            for i in self.dataproductos.keys():
+                print('\n---------------------------')
+                print(f'nombre: {self.dataproductos[i].nombre}')
+                print(f'cantidad en almacen: {self.dataproductos[i].cantidad}')
+                print(f'precio: {self.dataproductos[i].valor}')
+                print('---------------------------\n')
         print('----------Fin de productos-----------\n')
     
     def anadir_al_carrito(self):
@@ -144,9 +149,15 @@ class Tienda:
 
     def imprimir_fiadores(self):
         print('\n-------------- Mostrar Fiadores actuales --------------\n')
-        for fiador in self.fiadores:
-            print(f'Apodo:  {fiador.apodo}')
-            print(f'Deuda a la fecha:  {fiador.deuda}')        
+        if self.fiadores != []: 
+            for fiador in self.fiadores:
+                print(f'Apodo:  {fiador.apodo}')
+                print(f'Deuda a la fecha:  {fiador.deuda}')        
+        else:
+            print('\n---------------------------')
+            print(' No hay fiadores registrados ')
+            print('---------------------------\n')
+        print('\n----------------------------\n')
                     
     def vender_productos(self):
         print('\n-------------- Realizar Ventas --------------\n')
